@@ -88,7 +88,8 @@ namespace MiniDesktopUhr
 				(contextMenuStrip1.Items [index] as ToolStripMenuItem).Checked = scr.Bounds.Contains (this.Location);
 				if ((contextMenuStrip1.Items [index] as ToolStripMenuItem).Checked)
 				{
-					activeDisplay = index;
+					//activeDisplay = index;
+					activeDisplay = (int)(contextMenuStrip1.Items [index] as ToolStripMenuItem).Tag;
 				}
 			}
 
@@ -143,6 +144,10 @@ namespace MiniDesktopUhr
 		private void datumAnzeigenToolStripMenuItem_Click (object sender, EventArgs e)
 		{
 			bShowDate = datumAnzeigenToolStripMenuItem.Checked;
+			label1.Text = string.Format (bShowDate ? strWithDate : strWithOutDate, DateTime.Now);
+			this.Size = label1.PreferredSize;
+
+			RecalcPosition (activeDisplay);
 		}
 
 		private void schriftAnpassenToolStripMenuItem_Click (object sender, EventArgs e)
