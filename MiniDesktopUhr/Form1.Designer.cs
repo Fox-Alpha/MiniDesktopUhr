@@ -29,14 +29,15 @@
 		private void InitializeComponent ()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.label1 = new System.Windows.Forms.Label();
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.immerImFordergrundToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.datumAnzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.schriftAnpassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.beendenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.timer = new System.Windows.Forms.Timer(this.components);
-			this.datumAnzeigenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.schriftAnpassenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -72,23 +73,6 @@
 			this.immerImFordergrundToolStripMenuItem.Text = "Immer im Fordergrund";
 			this.immerImFordergrundToolStripMenuItem.Click += new System.EventHandler(this.immerImFordergrundToolStripMenuItem_Click);
 			// 
-			// toolStripMenuItem1
-			// 
-			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
-			// 
-			// beendenToolStripMenuItem
-			// 
-			this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-			this.beendenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-			this.beendenToolStripMenuItem.Text = "Beenden";
-			this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
-			// 
-			// timer
-			// 
-			this.timer.Interval = 1000;
-			this.timer.Tick += new System.EventHandler(this.timer_Tick);
-			// 
 			// datumAnzeigenToolStripMenuItem
 			// 
 			this.datumAnzeigenToolStripMenuItem.Checked = true;
@@ -106,6 +90,23 @@
 			this.schriftAnpassenToolStripMenuItem.Text = "Schrift anpassen";
 			this.schriftAnpassenToolStripMenuItem.Click += new System.EventHandler(this.schriftAnpassenToolStripMenuItem_Click);
 			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
+			// 
+			// beendenToolStripMenuItem
+			// 
+			this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
+			this.beendenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
+			this.beendenToolStripMenuItem.Text = "Beenden";
+			this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
+			// 
+			// timer
+			// 
+			this.timer.Interval = 1000;
+			this.timer.Tick += new System.EventHandler(this.timer_Tick);
+			// 
 			// Form1
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -116,6 +117,7 @@
 			this.ControlBox = false;
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "Form1";
 			this.Text = "Form1";
 			this.TopMost = true;
