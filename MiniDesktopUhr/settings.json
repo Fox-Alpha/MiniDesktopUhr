@@ -1,0 +1,27 @@
+{
+	"Window":{
+		"PosX":"0",
+		"PosY":"0"
+	},
+	"Display":"0",
+	"Edge":"0",
+	"Alarm":[
+		"TimeHour":"0",
+		"TimeMinute":"0",
+		"Repeate":"False",
+		"DayOfWeek":"0"
+	],
+	"ForeGround":"False",
+	"ShowDate":"False",
+	"Font": {
+		"Size":"",
+		"Bold":"",
+		"Underline":"",
+		"Name":"Arial",
+		"Color":{
+			"R":"0",
+			"G":"0",
+			"B":"0"
+		}
+	}
+}

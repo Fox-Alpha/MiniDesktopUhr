@@ -11,12 +11,21 @@ using System.Diagnostics;
 
 namespace MiniDesktopUhr
 {
+    enum DisplayEdge
+    {
+        TopLeft,
+        TopRight,
+        BottomLeft,
+        BottomRight
+    }
+
 	public partial class Form1 : Form
 	{
 		bool bShowDate = false;
 		const string strWithDate = "{0:dddd dd MMM, HH:mm:ss}";
 		const string strWithOutDate = "{0:HH:mm:ss}";
 		int activeDisplay = 0;
+        DisplayEdge Edge = DisplayEdge.TopLeft;
 
 		public Form1 ()
 		{
@@ -117,7 +126,7 @@ namespace MiniDesktopUhr
 				mi.Checked = true;
 				activeDisplay = (int) mi.Tag;
 				scr = Screen.AllScreens [activeDisplay];
-				RecalcPosition (activeDisplay);
+				RecalcPosition (activeDisplay, Edge);
 
 				mi.Text = (scr.Primary ? "(P)" : "") + //Ist dies der Primär Bildschirm `?
 								(scr.Bounds.Contains (this.Location) ? "*" : "") + // Wird die Form auf diesem Bildschrirm angezeigt ?
@@ -147,8 +156,9 @@ namespace MiniDesktopUhr
 			label1.Text = string.Format (bShowDate ? strWithDate : strWithOutDate, DateTime.Now);
 			this.Size = label1.PreferredSize;
 
-			RecalcPosition (activeDisplay);
-		}
+			RecalcPosition (activeDisplay, Edge);
+            //RecalcPosButtuns ();
+        }
 
 		private void schriftAnpassenToolStripMenuItem_Click (object sender, EventArgs e)
 		{
@@ -177,28 +187,130 @@ namespace MiniDesktopUhr
 				label1.Text = string.Format (bShowDate ? strWithDate : strWithOutDate, DateTime.Now);
 				this.Size = label1.PreferredSize;
 
-				RecalcPosition (activeDisplay);
-			}
+				RecalcPosition (activeDisplay, Edge);
+                //RecalcPosButtuns ();
+
+            }
 		}
 
-		private void RecalcPosition (int scrIdx)
+		private void RecalcPosition (int scrIdx, DisplayEdge pos=DisplayEdge.TopLeft)
 		{
 			//this.Location = new Point (Screen.AllScreens[scrIdx].WorkingArea.Width - this.Width - 5, Screen.AllScreens [scrIdx].WorkingArea.Height - this.Height - 5);
 			//this.Focus ();
 
-			Point disPosBottLeft = new Point ();
+			Point disPosTopLeft = new Point ();
 			Point FrmLoc = new Point ();
 
 			Rectangle disRect = new Rectangle ();
 
-			disRect = Screen.AllScreens [scrIdx].WorkingArea;
-			disPosBottLeft.X = disRect.Width + disRect.X;
-			disPosBottLeft.Y = disRect.Height + disRect.Y;
+            disRect = Screen.AllScreens [scrIdx].WorkingArea;
+            disPosTopLeft.X = disRect.X;
+            disPosTopLeft.Y = disRect.Y;
 
-			FrmLoc.X = disPosBottLeft.X - this.Width - 5;
-			FrmLoc.Y = disPosBottLeft.Y - this.Height - 5;
+            switch (pos)
+            {
+                case DisplayEdge.TopLeft:
+                    FrmLoc.X = disRect.X + 5;
+                    FrmLoc.Y = 0 + 5;
+                    break;
+
+                case DisplayEdge.TopRight:
+                    FrmLoc.X = disRect.X + disRect.Width - this.Width - 5;
+                    FrmLoc.Y = 0 + 5;
+                    break;
+
+                case DisplayEdge.BottomLeft:
+                    FrmLoc.X = disRect.X + 5;
+                    FrmLoc.Y = disRect.Y + disRect.Height - this.Height - 5;
+                    break;
+
+                case DisplayEdge.BottomRight:
+                    FrmLoc.X = disRect.X + disRect.Width - this.Width - 5;
+                    FrmLoc.Y = disRect.Y + disRect.Height - this.Height - 5;
+                    break;
+            }
+
+            Edge = pos;
 
 			this.Location = FrmLoc;
 		}
-	}
+
+        private void Form1_KeyPress (object sender, KeyPressEventArgs e)
+        {
+        }
+
+        private void Form1_KeyDown (object sender, KeyEventArgs e)
+        {
+            //Anzeigen der Positionsbuttons
+            if(e.Shift)
+            {
+                RecalcPosButtuns ();
+            }
+        }
+
+        private void RecalcPosButtuns ()
+        {
+            Point formSize = new Point (this.Size);
+
+            Debug.WriteLine ("FormSize: " + formSize.ToString ());
+            Rectangle myForm = new Rectangle (0, 0, this.Size.Width, this.Size.Height);
+            Point newLoc = new Point ();
+
+            button1.Visible = true;
+
+            newLoc.X = myForm.Width - button2.Width;
+            newLoc.Y = 0;
+            button2.Location = newLoc;
+            button2.Visible = true;
+
+            newLoc.X = 0;
+            newLoc.Y = myForm.Height - button3.Height;
+            button3.Location = newLoc;
+            button3.Visible = true;
+
+            newLoc.X = myForm.Width - button4.Width;
+            newLoc.Y = myForm.Height - button4.Height;
+            button4.Location = newLoc;
+            button4.Visible = true;
+        }
+
+        private void FormToDiplayEdge (object sender, EventArgs e)
+        {
+            Button butt = sender as Button;
+
+            if(butt != null)
+            {
+                switch (Convert.ToInt32(butt.Tag))
+                {
+                    case 0:
+                        RecalcPosition (activeDisplay, DisplayEdge.TopLeft);
+                        break;
+                    case 1:
+                        RecalcPosition (activeDisplay, DisplayEdge.TopRight);
+                        break;
+                    case 2:
+                        RecalcPosition (activeDisplay, DisplayEdge.BottomLeft);
+                        break;
+                    case 3:
+                        RecalcPosition (activeDisplay, DisplayEdge.BottomRight);
+                        break;
+                }
+                button1.Visible = false;
+                button2.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
+            }
+        }
+
+        private void Form1_KeyUp (object sender, KeyEventArgs e)
+        {
+            if (!e.Shift)
+            {
+                button1.Visible = false;
+                button2.Visible = false;
+                button3.Visible = false;
+                button4.Visible = false;
+            }
+        }
+    }
 }
