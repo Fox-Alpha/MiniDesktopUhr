@@ -30,7 +30,10 @@ namespace MiniDesktopUhr
         DisplayEdge Edge = DisplayEdge.TopLeft;
         AppSettings setting;
 
-		public Form1 ()
+        JsonSerializerSettings jsonSerializerSettings;
+        JsonSerializer serializer;
+
+        public Form1 ()
 		{
 			InitializeComponent ();
 			foreach (var scr in Screen.AllScreens)
@@ -42,15 +45,7 @@ namespace MiniDesktopUhr
 				}
 			}
 
-            setting = new AppSettings ();
-            ReadJSonKonfiguration ("settings.json");
-		}
-
-        private void ReadJSonKonfiguration (string JSonFile)
-        {
             //	Setzen der Serializer Settings
-            JsonSerializerSettings jsonSerializerSettings;
-
             jsonSerializerSettings = new JsonSerializerSettings ();
             jsonSerializerSettings.Formatting = Formatting.Indented;
             jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
@@ -58,8 +53,14 @@ namespace MiniDesktopUhr
             jsonSerializerSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
             jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
 
-            JsonSerializer serializer = JsonSerializer.CreateDefault (jsonSerializerSettings);
+            serializer = JsonSerializer.CreateDefault (jsonSerializerSettings);
 
+            setting = new AppSettings ();
+            ReadJSonKonfiguration ("settings.json");
+		}
+
+        private void ReadJSonKonfiguration (string JSonFile)
+        {
             if (!File.Exists (JSonFile))
             {
                 Debug.WriteLine ("Fehlende Angabe oder Angegebene Konfiguration ungültig.");
@@ -183,7 +184,19 @@ namespace MiniDesktopUhr
 		private void Form1_FormClosing (object sender, FormClosingEventArgs e)
 		{
 			timer.Enabled = false;
-		}
+            setting.ActiveDisplay = activeDisplay;
+            setting.ActiveEdge = (int) Edge;
+            setting.SetForground = this.TopMost;
+            setting.ClockText.color = label1.ForeColor;
+            setting.ClockText.font = label1.Font;
+
+
+            //Test Alarm
+            setting.Alarm.Add (new AlarmSettings () { TimeHour = 16, TimeMinute = 25, Active = true, alarmcolor = Color.AliceBlue, Repeat = false });
+
+            string json = JsonConvert.SerializeObject (setting, jsonSerializerSettings);
+            Debug.WriteLine (json);
+        }
 
 		private void immerImFordergrundToolStripMenuItem_Click (object sender, EventArgs e)
 		{
@@ -373,10 +386,10 @@ namespace MiniDesktopUhr
         public int ActiveEdge { get; set; }
 
         [JsonProperty (PropertyName = "Alarm", Required = Required.Always)]
-        List<AlarmSettings> Alarm = new List<AlarmSettings> ();
+        public List<AlarmSettings> Alarm = new List<AlarmSettings> ();
 
         [JsonProperty (PropertyName = "ClockText", Required = Required.Always)]
-        TextSettings ClockText = new TextSettings();
+        public TextSettings ClockText = new TextSettings();
     }
 
     [JsonObject (MemberSerialization.OptIn)]
@@ -394,7 +407,7 @@ namespace MiniDesktopUhr
         [JsonProperty (PropertyName = "Active", Required = Required.Always)]
         public bool Active { get; set; }
 
-        [JsonProperty (PropertyName = "Soundfile", Required = Required.Always)]
+        [JsonProperty (PropertyName = "Soundfile", Required = Required.AllowNull)]
         public string SoundFile { get; set; }
 
         [JsonProperty (PropertyName = "Color", Required = Required.Always)]
