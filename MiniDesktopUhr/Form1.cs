@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace MiniDesktopUhr
 {
@@ -26,6 +28,7 @@ namespace MiniDesktopUhr
 		const string strWithOutDate = "{0:HH:mm:ss}";
 		int activeDisplay = 0;
         DisplayEdge Edge = DisplayEdge.TopLeft;
+        AppSettings setting;
 
 		public Form1 ()
 		{
@@ -38,9 +41,51 @@ namespace MiniDesktopUhr
 					break;
 				}
 			}
+
+            setting = new AppSettings ();
+            ReadJSonKonfiguration ("settings.json");
 		}
 
-		private void contextMenuStrip1_Opening (object sender, CancelEventArgs e)
+        private void ReadJSonKonfiguration (string JSonFile)
+        {
+            //	Setzen der Serializer Settings
+            JsonSerializerSettings jsonSerializerSettings;
+
+            jsonSerializerSettings = new JsonSerializerSettings ();
+            jsonSerializerSettings.Formatting = Formatting.Indented;
+            jsonSerializerSettings.MissingMemberHandling = MissingMemberHandling.Ignore;
+            jsonSerializerSettings.NullValueHandling = NullValueHandling.Include;
+            jsonSerializerSettings.StringEscapeHandling = StringEscapeHandling.EscapeNonAscii;
+            jsonSerializerSettings.TypeNameHandling = TypeNameHandling.Auto;
+
+            JsonSerializer serializer = JsonSerializer.CreateDefault (jsonSerializerSettings);
+
+            if (!File.Exists (JSonFile))
+            {
+                Debug.WriteLine ("Fehlende Angabe oder Angegebene Konfiguration ungültig.");
+                //WriteToLogFile ("Fehlende Angabe oder Angegebene Konfiguration ungültig.", "");
+                string json = JsonConvert.SerializeObject (setting, jsonSerializerSettings);
+                Debug.WriteLine (json);
+                return;
+            }
+
+            //StreamWriter sw = new StreamWriter (@"data\exampleOut.json");
+            //JsonWriter writer = new JsonTextWriter (sw);
+
+            using (StreamReader sr = new StreamReader (JSonFile))
+            {
+                using (JsonReader reader = new JsonTextReader (sr))
+                {
+                    setting = serializer.Deserialize<AppSettings> (reader);
+#if (DEBUG)
+                    string output = JsonConvert.SerializeObject (setting, jsonSerializerSettings);
+                    Debug.WriteLine (output);
+#endif
+                }
+            }
+        }
+
+        private void contextMenuStrip1_Opening (object sender, CancelEventArgs e)
 		{
 		}
 
@@ -312,5 +357,63 @@ namespace MiniDesktopUhr
                 button4.Visible = false;
             }
         }
+    }
+
+    /* Klasse zum einlesen der JSON Konfiguration */
+    [JsonObject (MemberSerialization.OptIn)]
+    public class AppSettings
+    {
+        [JsonProperty (PropertyName = "ForeGround", Required = Required.Always)]
+        public bool SetForground { get; set; }
+
+        [JsonProperty (PropertyName = "Display", Required = Required.Always)]
+        public int ActiveDisplay { get; set; }
+
+        [JsonProperty (PropertyName = "Edge", Required = Required.Always)]
+        public int ActiveEdge { get; set; }
+
+        [JsonProperty (PropertyName = "Alarm", Required = Required.Always)]
+        List<AlarmSettings> Alarm = new List<AlarmSettings> ();
+
+        [JsonProperty (PropertyName = "ClockText", Required = Required.Always)]
+        TextSettings ClockText = new TextSettings();
+    }
+
+    [JsonObject (MemberSerialization.OptIn)]
+    public class AlarmSettings
+    {
+        [JsonProperty (PropertyName = "TimeHour", Required = Required.Always)]
+        public int TimeHour { get; set; }
+
+        [JsonProperty (PropertyName = "TimeMinute", Required = Required.Always)]
+        public int TimeMinute { get; set; }
+
+        [JsonProperty (PropertyName = "Repeat", Required = Required.Always)]
+        public bool Repeat { get; set; }
+
+        [JsonProperty (PropertyName = "Active", Required = Required.Always)]
+        public bool Active { get; set; }
+
+        [JsonProperty (PropertyName = "Soundfile", Required = Required.Always)]
+        public string SoundFile { get; set; }
+
+        [JsonProperty (PropertyName = "Color", Required = Required.Always)]
+        public Color alarmcolor = new Color ();
+
+        [JsonProperty (PropertyName = "DayOfWeek", Required = Required.Always)]
+        public Dictionary<String, bool> DayOfWeek = new Dictionary<String, bool>() { { "Monday", true }, { "Tuesday", true }, { "Wednesday", true }, { "Thursday", true }, { "Friday", true }, { "Saturday", true }, { "Sunday", true } };
+    }
+
+    [JsonObject (MemberSerialization.OptIn)]
+    public class TextSettings
+    {
+        [JsonProperty (PropertyName = "ShowDate", Required = Required.Always)]
+        public bool ShowDateText { get; set; }
+
+        [JsonProperty (PropertyName = "Font", Required = Required.Always)]
+        public Font font = new Font ("Arial", 12, GraphicsUnit.Pixel);
+
+        [JsonProperty (PropertyName = "Color", Required = Required.Always)]
+        public Color color = Color.Black; //new Color ();
     }
 }
