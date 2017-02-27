@@ -1,27 +1,38 @@
 {
-	"Window":{
-		"PosX":"0",
-		"PosY":"0"
-	},
+	"ForeGround":"False",
 	"Display":"0",
 	"Edge":"0",
 	"Alarm":[
-		"TimeHour":"0",
-		"TimeMinute":"0",
-		"Repeate":"False",
-		"DayOfWeek":"0"
+		{
+			"TimeHour":"0",
+			"TimeMinute":"0",
+			"Repeat":"False",
+			"DayOfWeek":{
+				"Monday":"false",
+				"Tuesday":"false",
+				"Wednesday":"false",
+				"Thursday":"false",
+				"Friday":"false",
+				"Saturday":"false",
+				"Sunday":"false"
+			},
+			"Active":"FALSE",
+			"Soundfile":"",
+			"Color":"10,20,30,40"
+		}
 	],
-	"ForeGround":"False",
-	"ShowDate":"False",
-	"Font": {
-		"Size":"",
-		"Bold":"",
-		"Underline":"",
-		"Name":"Arial",
+	"ClockText":{
+		"ShowDate":"False",
+		"Font": {
+			"Size":"",
+			"Bold":"",
+			"Underline":"",
+			"Name":"Arial",
+		},
 		"Color":{
 			"R":"0",
 			"G":"0",
 			"B":"0"
 		}
-	}
+
 }
