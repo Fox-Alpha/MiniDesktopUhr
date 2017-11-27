@@ -86,6 +86,29 @@ namespace MiniDesktopUhr
             }
         }
 
+        public bool WriteJsonKonfiguration (string JSonFile)
+        {
+            try
+            {
+                //  Datei wird angelegt, wenn diese nicht existiert
+                using (StreamWriter file = File.CreateText (JSonFile))
+                {
+                    serializer.Serialize (file, setting);
+
+                    string json = JsonConvert.SerializeObject (setting, jsonSerializerSettings);
+                    Debug.WriteLine (json);
+
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine (e.Message, "Error: writeJSON()");
+                return false;
+            }
+            return true;
+        }
+
+
         private void contextMenuStrip1_Opening (object sender, CancelEventArgs e)
 		{
 		}
@@ -194,8 +217,7 @@ namespace MiniDesktopUhr
             //Test Alarm
             setting.Alarm.Add (new AlarmSettings () { TimeHour = 16, TimeMinute = 25, Active = true, alarmcolor = Color.AliceBlue, Repeat = false });
 
-            string json = JsonConvert.SerializeObject (setting, jsonSerializerSettings);
-            Debug.WriteLine (json);
+            WriteJsonKonfiguration ("settings.json");
         }
 
 		private void immerImFordergrundToolStripMenuItem_Click (object sender, EventArgs e)
@@ -300,7 +322,7 @@ namespace MiniDesktopUhr
         private void Form1_KeyDown (object sender, KeyEventArgs e)
         {
             //Anzeigen der Positionsbuttons
-            if(e.Shift)
+            if(e.KeyCode == Keys.ShiftKey)
             {
                 RecalcPosButtuns ();
             }
@@ -362,7 +384,7 @@ namespace MiniDesktopUhr
 
         private void Form1_KeyUp (object sender, KeyEventArgs e)
         {
-            if (!e.Shift)
+            if (e.KeyCode == Keys.ShiftKey)
             {
                 button1.Visible = false;
                 button2.Visible = false;
@@ -423,7 +445,7 @@ namespace MiniDesktopUhr
         [JsonProperty (PropertyName = "ShowDate", Required = Required.Always)]
         public bool ShowDateText { get; set; }
 
-        [JsonProperty (PropertyName = "Font", Required = Required.Always)]
+        [JsonProperty (PropertyName = "Font", Required = Required.AllowNull)]
         public Font font = new Font ("Arial", 12, GraphicsUnit.Pixel);
 
         [JsonProperty (PropertyName = "Color", Required = Required.Always)]
