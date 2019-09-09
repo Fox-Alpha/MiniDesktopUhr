@@ -66,14 +66,14 @@
             this.toolStripMenuItem1,
             this.beendenToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 98);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(196, 98);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // immerImFordergrundToolStripMenuItem
             // 
             this.immerImFordergrundToolStripMenuItem.CheckOnClick = true;
             this.immerImFordergrundToolStripMenuItem.Name = "immerImFordergrundToolStripMenuItem";
-            this.immerImFordergrundToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.immerImFordergrundToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.immerImFordergrundToolStripMenuItem.Text = "Immer im Fordergrund";
             this.immerImFordergrundToolStripMenuItem.Click += new System.EventHandler(this.immerImFordergrundToolStripMenuItem_Click);
             // 
@@ -83,26 +83,26 @@
             this.datumAnzeigenToolStripMenuItem.CheckOnClick = true;
             this.datumAnzeigenToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.datumAnzeigenToolStripMenuItem.Name = "datumAnzeigenToolStripMenuItem";
-            this.datumAnzeigenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.datumAnzeigenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.datumAnzeigenToolStripMenuItem.Text = "Datum anzeigen";
             this.datumAnzeigenToolStripMenuItem.Click += new System.EventHandler(this.datumAnzeigenToolStripMenuItem_Click);
             // 
             // schriftAnpassenToolStripMenuItem
             // 
             this.schriftAnpassenToolStripMenuItem.Name = "schriftAnpassenToolStripMenuItem";
-            this.schriftAnpassenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.schriftAnpassenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.schriftAnpassenToolStripMenuItem.Text = "Schrift anpassen";
             this.schriftAnpassenToolStripMenuItem.Click += new System.EventHandler(this.schriftAnpassenToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(192, 6);
             // 
             // beendenToolStripMenuItem
             // 
             this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
-            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.beendenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
             this.beendenToolStripMenuItem.Text = "Beenden";
             this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItem_Click);
             // 
