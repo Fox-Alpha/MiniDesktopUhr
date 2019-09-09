@@ -13,16 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MiniDesktopUhrWPF
+namespace MiniDesktopUhrWPF.Views
 {
-	/// <summary>
-	/// Interaktionslogik für AppView.xaml
-	/// </summary>
-	public partial class AppView : UserControl
-	{
-		public AppView ()
-		{
-			InitializeComponent ();
-		}
-	}
+    /// <summary>
+    /// Interaktionslogik für ClockView.xaml
+    /// </summary>
+    public partial class ClockView : UserControl
+    {
+        public ClockView()
+        {
+            InitializeComponent();
+        }
+    }
 }
