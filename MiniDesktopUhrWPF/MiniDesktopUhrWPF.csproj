@@ -74,6 +74,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Helper\NativeMethods.cs" />
+    <Compile Include="Helper\ScreenHelper.cs" />
+    <Compile Include="Helper\SystemInformation.cs" />
+    <Compile Include="Models\MonitorModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />
     <Compile Include="Views\ClockView.xaml.cs">
       <DependentUpon>ClockView.xaml</DependentUpon>
