@@ -78,9 +78,14 @@
     <Compile Include="Helper\ScreenHelper.cs" />
     <Compile Include="Helper\SystemInformation.cs" />
     <Compile Include="Models\MonitorModel.cs" />
+    <Compile Include="Models\SettingsModel.cs" />
     <Compile Include="ViewModels\ClockViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\ClockView.xaml.cs">
       <DependentUpon>ClockView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>
@@ -119,6 +124,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ClockView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

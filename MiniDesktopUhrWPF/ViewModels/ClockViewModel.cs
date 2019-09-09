@@ -10,6 +10,8 @@ namespace MiniDesktopUhrWPF.ViewModels
 {
     public class ClockViewModel : Screen
     {
+        private SimpleContainer _container;
+
         private bool _ShowDate = false;
         public bool ShowDate
         {
@@ -37,8 +39,10 @@ namespace MiniDesktopUhrWPF.ViewModels
 
         private System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
-        public ClockViewModel()
+        public ClockViewModel(SimpleContainer container)
         {
+            _container = container;
+
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
@@ -59,6 +63,16 @@ namespace MiniDesktopUhrWPF.ViewModels
         public void ShowStringDate()
         {
             ShowDate = !ShowDate;
+        }
+
+        public void OpenOptions()
+        {
+            SettingsViewModel setting = _container.GetInstance<SettingsViewModel>();
+            IWindowManager windowManager = _container.GetInstance<IWindowManager>();
+
+            // Assumes that there is a NewDialogView...
+            bool? result = windowManager.ShowDialog(setting);
+            // result is true if user pressed ok button...
         }
     }
 }

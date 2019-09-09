@@ -11,10 +11,11 @@
     <Grid>
         <Grid.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Datum anzeigen" IsChecked="{Binding bShowDate, Mode=TwoWay}" cal:Message.Attach="[Event Click] = [Action ShowStringDate()]"/>
+                <MenuItem Header="Datum anzeigen" IsChecked="{Binding ShowDate, Mode=TwoWay}" cal:Message.Attach="[Event Click] = [Action ShowStringDate()]"/>
                 <MenuItem Header="Beenden" cal:Message.Attach="[Event Click] = [Action AppExit()]"/>
                 <Separator/>
-                <MenuItem Header="Monitore" ItemsSource="{Binding Displays}"/>
+                <MenuItem Header="Monitore" />
+                <MenuItem Header="Einstellungen" cal:Message.Attach="[Event Click] = [Action OpenOptions()]"/>
                 <Separator/>
             </ContextMenu>
         </Grid.ContextMenu>
