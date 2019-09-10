@@ -14,7 +14,7 @@
                 <MenuItem Header="Datum anzeigen" IsChecked="{Binding ShowDate, Mode=TwoWay}" cal:Message.Attach="[Event Click] = [Action ShowStringDate()]"/>
                 <MenuItem Header="Beenden" cal:Message.Attach="[Event Click] = [Action AppExit()]"/>
                 <Separator/>
-                <MenuItem Header="Monitore" />
+                <MenuItem Header="Monitore" cal:Message.Attach="[Event Click] = [Action DisplayMonitorInfo()]"/>
                 <MenuItem Header="Einstellungen" cal:Message.Attach="[Event Click] = [Action OpenOptions()]"/>
                 <Separator/>
             </ContextMenu>

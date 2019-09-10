@@ -1,10 +1,12 @@
 ﻿using Caliburn.Micro;
+using MiniDesktopUhrWPF.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace MiniDesktopUhrWPF.ViewModels
 {
@@ -73,6 +75,18 @@ namespace MiniDesktopUhrWPF.ViewModels
             // Assumes that there is a NewDialogView...
             bool? result = windowManager.ShowDialog(setting);
             // result is true if user pressed ok button...
+        }
+
+        public void DisplayMonitorInfo()
+        {
+            MonitorModel monitorModel = _container.GetInstance<MonitorModel>();
+            string primary = "(*P)";
+
+            foreach (var scr in monitorModel.Screens)
+            {
+                System.Diagnostics.Debug.WriteLine($"{(scr.Primary ? primary : "")} {scr.DeviceName} {scr.Bounds}");
+            }
+
         }
     }
 }

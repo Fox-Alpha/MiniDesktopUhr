@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Caliburn.Micro;
+using MiniDesktopUhrWPF.Models;
 using MiniDesktopUhrWPF.ViewModels;
 
 namespace MiniDesktopUhrWPF
@@ -25,7 +26,8 @@ namespace MiniDesktopUhrWPF
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<MonitorModel, MonitorModel>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
