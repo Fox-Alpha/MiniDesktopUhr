@@ -436,7 +436,15 @@ namespace MiniDesktopUhr
         public Color alarmcolor = new Color ();
 
         [JsonProperty (PropertyName = "DayOfWeek", Required = Required.Always)]
-        public Dictionary<String, bool> DayOfWeek = new Dictionary<String, bool>() { { "Monday", true }, { "Tuesday", true }, { "Wednesday", true }, { "Thursday", true }, { "Friday", true }, { "Saturday", true }, { "Sunday", true } };
+        public Dictionary<String, bool> DayOfWeek = new Dictionary<String, bool>() 
+		{ 
+			{ "Monday", true }, 
+			{ "Tuesday", true }, 
+			{ "Wednesday", true }, 
+			{ "Thursday", true }, 
+			{ "Friday", true }, 
+			{ "Saturday", true }, 
+			{ "Sunday", true } };
     }
 
     [JsonObject (MemberSerialization.OptIn)]
