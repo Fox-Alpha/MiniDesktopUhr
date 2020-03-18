@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace MiniDesktopUhrWPF.Models
 {
-    public class MonitorModel
+    public class MonitorModel : IMonitorModel
     {
         private Screen[] _screens;
         public Screen[] Screens { get => _screens; set => _screens = value; }
@@ -16,7 +16,7 @@ namespace MiniDesktopUhrWPF.Models
         public MonitorModel()
         {
             Screens = Screen.AllScreens.ToArray();
-        }        
+        }
 
         public int GetPrimaryScreenIndex()
         {
