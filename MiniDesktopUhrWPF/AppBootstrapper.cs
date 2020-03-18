@@ -27,7 +27,8 @@ namespace MiniDesktopUhrWPF
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<MonitorModel, MonitorModel>();
+                .Singleton<IMonitorModel, MonitorModel>()
+                .Singleton<ISettingsModel, SettingsModel>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
@@ -35,10 +36,6 @@ namespace MiniDesktopUhrWPF
                 .ToList()
                 .ForEach(viewModelType => _container.RegisterPerRequest(
                     viewModelType, viewModelType.ToString(), viewModelType));
-
-            Dictionary<string, object> setting = new Dictionary<string, object>();
-            setting.Add("WindowStyle", WindowStyle.None);
-            setting.Add("ResizeMode", ResizeMode.NoResize);
         }
 
         protected override void OnStartup (object sender, StartupEventArgs e)
