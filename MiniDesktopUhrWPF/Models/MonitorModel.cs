@@ -14,12 +14,19 @@ namespace MiniDesktopUhrWPF.Models
     {
         //private Screen[] _screens;
         //public Screen[] Screens { get => _screens; set => _screens = value; }
-        public BindableCollection<Helper.Screen> Screens { get; set; }
+        private BindableCollection<Helper.Screen> _screens;
+
+        public BindableCollection<Helper.Screen> Screens
+        {
+            get { return _screens; }
+            set { _screens = value; }
+        }
 
         public MonitorModel()
         {
             //Screens = Screen.AllScreens.ToArray();
             Screens = new BindableCollection<Helper.Screen>();
+            Screens.AddRange(Helper.Screen.AllScreens);
         }
 
         public int GetPrimaryScreenIndex()
