@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MiniDesktopUhrWPF.Views"
         mc:Ignorable="d"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="ShellView" Height="100" Width="400" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None">
+        Title="ShellView" SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="None">
+    <!--Height="100" Width="400"-->
     <Grid>
         <ContentControl x:Name="ActiveItem" Margin="5" />
     </Grid>
