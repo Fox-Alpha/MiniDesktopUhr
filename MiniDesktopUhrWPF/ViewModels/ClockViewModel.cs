@@ -12,7 +12,7 @@ namespace MiniDesktopUhrWPF.ViewModels
 {
     public class ClockViewModel : Screen
     {
-        private SimpleContainer _container;
+        private readonly SimpleContainer _container;
 
         private bool _ShowDate = false;
         public bool ShowDate
@@ -67,13 +67,13 @@ namespace MiniDesktopUhrWPF.ViewModels
             ShowDate = !ShowDate;
         }
 
-        public void OpenOptions()
+        public async void  OpenOptions()
         {
             SettingsViewModel setting = _container.GetInstance<SettingsViewModel>();
             IWindowManager windowManager = _container.GetInstance<IWindowManager>();
 
             // Assumes that there is a NewDialogView...
-            bool? result = windowManager.ShowDialog(setting);
+            bool? result = await windowManager.ShowDialogAsync(setting);
             // result is true if user pressed ok button...
         }
 
