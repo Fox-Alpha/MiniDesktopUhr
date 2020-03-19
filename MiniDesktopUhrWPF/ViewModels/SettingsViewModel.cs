@@ -10,11 +10,14 @@ namespace MiniDesktopUhrWPF.ViewModels
 {
     public class SettingsViewModel : Screen
     {
-        private SettingsModel _settingsModel;
+        private readonly ISettingsModel _settingsModel;
+        private readonly SimpleContainer _container;
 
-        public SettingsViewModel()
+        public SettingsViewModel(SimpleContainer container)
         {
+            this._container = container;
 
+            _settingsModel = container.GetInstance<ISettingsModel>();
         }
     }
 }
