@@ -52,6 +52,10 @@ namespace MiniDesktopUhrWPF.ViewModels
             dispatcherTimer.Start();
         }
 
+        public ClockViewModel()
+        {
+        }
+
         void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             StrUhrzeit = string.Format(ShowDate ? strWithDate : strWithOutDate, DateTime.Now);
@@ -79,12 +83,12 @@ namespace MiniDesktopUhrWPF.ViewModels
 
         public void DisplayMonitorInfo()
         {
-            MonitorModel monitorModel = _container.GetInstance<MonitorModel>();
+            IMonitorModel monitorModel = _container.GetInstance<IMonitorModel>();
             string primary = "(*P)";
 
             foreach (var scr in monitorModel.Screens)
             {
-                System.Diagnostics.Debug.WriteLine($"{(scr.Primary ? primary : "")} {scr.DeviceName} {scr.Bounds}");
+                System.Diagnostics.Debug.WriteLine($"{(scr.Primary ? primary : "")} {scr.DeviceName}: ({scr.Bounds.Height} * {scr.Bounds.Width})");
             }
 
         }
