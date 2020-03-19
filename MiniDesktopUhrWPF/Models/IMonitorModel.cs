@@ -4,9 +4,9 @@ namespace MiniDesktopUhrWPF.Models
 {
     public interface IMonitorModel
     {
-        Screen[] Screens { get; set; }
+        Helper.Screen[] Screens { get; set; }
 
-        Screen GetPrimaryScreen();
+        Helper.Screen GetPrimaryScreen();
         int GetPrimaryScreenIndex();
     }
 }
