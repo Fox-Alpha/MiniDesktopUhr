@@ -10,12 +10,9 @@ namespace MiniDesktopUhrWPF.ViewModels
 {
     public class ShellViewModel : Conductor<object>
     {
-        private ClockViewModel _clockVM;
-
-        public ShellViewModel(ClockViewModel clockVM)
+        public ShellViewModel()
         {
-            _clockVM = clockVM;
-            ActivateItem(_clockVM);
+            ActivateItemAsync(IoC.Get<ClockViewModel>(), new System.Threading.CancellationToken());
         }
 
     }
