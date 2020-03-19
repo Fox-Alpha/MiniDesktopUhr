@@ -5,28 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Caliburn.Micro;
+using System.Collections.ObjectModel;
 
 namespace MiniDesktopUhrWPF.Models
 {
     public class MonitorModel : IMonitorModel
     {
-        private Screen[] _screens;
-        public Screen[] Screens { get => _screens; set => _screens = value; }
+        //private Screen[] _screens;
+        //public Screen[] Screens { get => _screens; set => _screens = value; }
+        public BindableCollection<Helper.Screen> Screens { get; set; }
 
         public MonitorModel()
         {
-            Screens = Screen.AllScreens.ToArray();
+            //Screens = Screen.AllScreens.ToArray();
+            Screens = new BindableCollection<Helper.Screen>();
         }
 
         public int GetPrimaryScreenIndex()
         {
             int activeDisplay = -1;
 
-            foreach (var scr in Screen.AllScreens)
+            foreach (var scr in Helper.Screen.AllScreens)
             {
                 if (scr.Primary)
                 {
-                    activeDisplay = Screen.AllScreens.ToList().IndexOf(scr);
+                    activeDisplay = Helper.Screen.AllScreens.ToList().IndexOf(scr);
                     break;
                 }
             }
@@ -34,7 +38,7 @@ namespace MiniDesktopUhrWPF.Models
             return activeDisplay;
         }
 
-        public Screen GetPrimaryScreen()
+        public Helper.Screen GetPrimaryScreen()
         {
             return Screens[GetPrimaryScreenIndex()];
         }
